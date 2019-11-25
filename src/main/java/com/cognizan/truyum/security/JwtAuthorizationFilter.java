@@ -39,7 +39,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter implements
 		TruyumConstants.LOGGER.info("Start");
 		String header=req.getHeader("Authorization");
 		TruyumConstants.LOGGER.info(header);
-		if(header==null || !header.startsWith("Bearer"))
+		if(header==null || !header.startsWith("Bearer "))
 		{
 			TruyumConstants.LOGGER.info("Inside if");
 			chain.doFilter(req, res);

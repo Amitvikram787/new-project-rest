@@ -1,7 +1,7 @@
 package com.cognizan.truyum.service;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -42,6 +42,7 @@ public class CartServiceImpl  {
                   System.out.println(cart);
                   return cart;
            }
+         
     }
     @Transactional
     public void addToCartItem(String username, long menuItemId) {
@@ -52,7 +53,7 @@ public class CartServiceImpl  {
            if (cart != null) {
                   System.out.println(cart.toString());
                   System.out.println("Cart is Not Empty");
-                  Set<CartItems> cartItems = cartItemRepository.findByCartAndFoodItem(cart, menuItem);
+                  List<CartItems> cartItems = cartItemRepository.findByCartAndFoodItem(cart, menuItem);
                   for (CartItems cartItem : cart.getItems()) {
                         if (cartItem.getFoodItem().getId()== menuItemId) {
                                cartItem.setQuantity(cartItem.getQuantity() + 1);
@@ -72,7 +73,7 @@ public class CartServiceImpl  {
                   cartRepository.save(cart);
            } else {
                   System.out.println("Cart is Empty");
-                  Set<CartItems> newCartSet = new HashSet<CartItems>();
+                  List<CartItems> newCartSet = new ArrayList<CartItems>();
                   Cart newCart = new Cart( newCartSet,(int) menuItem.getPrice(),user);
                   cartRepository.save(newCart);
                   CartItems cartItem = new CartItems(menuItem, 1, newCart);
@@ -88,7 +89,8 @@ public class CartServiceImpl  {
            User user = userRepository.findbyUserName(username);
            MenuItem menuItem = menuItemRepository.findById((int)menuItemId).get();
            Cart cart = cartRepository.findByUserId(user.getId());
-           Set<CartItems> cartItems = cartItemRepository.findByCartAndFoodItem(cart, menuItem);
+           List<CartItems> cartItems = cartItemRepository.findByCartAndFoodItem(cart, menuItem);
+           System.out.println(cartItems);
            for (CartItems cartItem : cart.getItems()) {
                   if (cartItem.getFoodItem().getId() == menuItemId) {
                         if (cartItem.getQuantity() >1) {

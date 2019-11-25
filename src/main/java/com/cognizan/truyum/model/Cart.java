@@ -26,7 +26,7 @@ public class Cart {
 	private int id;
 
 	@OneToMany(mappedBy = "cart", fetch = FetchType.EAGER)
-	private Set<CartItems> items;
+	private List<CartItems> items;
 
 	@Column(name = "ct_total")
 	private int total;
@@ -38,11 +38,11 @@ public class Cart {
    
 	
 	
-	public Set<CartItems> getItems() {
+	public List<CartItems> getItems() {
 		return items;
 	}
 
-	public void setItems(Set<CartItems> items) {
+	public void setItems(List<CartItems> items) {
 		this.items = items;
 	}
 
@@ -54,7 +54,7 @@ public class Cart {
 		this.total = total;
 	}
 
-	public Cart(Set<CartItems> items, int total) {
+	public Cart(List<CartItems> items, int total) {
 		super();
 		this.items = items;
 		this.total = total;
@@ -64,7 +64,7 @@ public class Cart {
 
 	}
 
-	public Cart(Set<CartItems> items, int total, User user) {
+	public Cart(List<CartItems> items, int total, User user) {
 		super();
 		this.items = items;
 		this.total = total;
